@@ -1,0 +1,77 @@
+ /* start header */
+
+
+ .container {
+     padding-left: 15px;
+     padding-right: 15px;
+     margin-left: auto;
+     margin-right: auto;
+     position: relative;
+ }
+
+ header {
+     /* position: absolute; */
+     background-color: #3f51b594;
+     width: 100%;
+     padding-top: 25px;
+     padding-bottom: 25px;
+     z-index: 200;
+
+ }
+
+ header .container {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+ }
+
+ header .container .logo {
+     width: 12%;
+     color: var(--main-color);
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+ }
+
+ /* header .container .logo img {
+    width: 50%;
+} */
+
+ header .container .logo span {
+     font-family: 'Montserrat';
+     font-style: normal;
+     font-weight: 700;
+     font-size: 20px;
+     line-height: 24px;
+ }
+
+ header .container ul {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+ }
+
+ header .container ul {
+     margin: 0;
+     padding: 0;
+ }
+
+ header .container ul li a {
+     color: var(--gray-color);
+     /* padding-left: 50px; */
+     padding: 15px 20px;
+     color: #1E1E1E;
+ }
+
+ header .container ul li a.login {
+     color: var(--main-color);
+ }
+
+ header .container a.button {
+     /* width: 12%;
+    height: 15%; */
+     text-align: center;
+     /* padding: 10px 20px; */
+ }
+
+ /* end header */
