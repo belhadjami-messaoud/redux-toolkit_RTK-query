@@ -2,8 +2,7 @@ import React from "react";
 import "./navbar.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
-import { useLogoutMutation } from "../../services/auth/authAPI";
-import { logOutUser } from "../../features/authSlice";
+import { logoutUser } from "../../features/authSlice";
 
 export default function navbar() {
   // const [logout] = useLogoutMutation();
@@ -42,11 +41,16 @@ export default function navbar() {
                 </Link>
               </li>
             )}
+            {/* <li>
+              <Link to="/login" className="login">
+                Log in
+              </Link>
+            </li> */}
           </ul>
           {user && (
             <Link
               onClick={() => {
-                dispatch(logOutUser());
+                dispatch(logoutUser());
               }}
               to="/"
               className="button active"
@@ -59,6 +63,9 @@ export default function navbar() {
               dash
             </Link>
           )}
+          {/* <Link to="/dash/home" className="button active">
+            dash
+          </Link> */}
         </div>
       </header>
     </>

@@ -1,36 +1,43 @@
-import { Navigate, useNavigate, BrowserRouter } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { Navigate, Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import { useUserRefreshMutation } from "../services/auth/authAPI";
-import { Outlet } from "react-router-dom";
-import { useState } from "react";
-import { reset, userRefresh } from "../features/authSlice";
+const PrivateRouter = () => {
+  const { isAuthenticated } = useSelector((state) => state.auth);
 
-export default function PrivateRouter({ children, auth }) {
-  const { isSuccess, isLoading, user, isAuthenticated } = useSelector(
-    (store) => store.auth
+  return isAuthenticated ? (
+    <Outlet />
+  ) : (
+    <Navigate state={{ form: location }} replace to="/" />
   );
-  const location = useLocation();
-  const dispatch = useDispatch();
+};
 
-  //   useEffect(() => {
-  //     dispatch(userRefresh());
-  //   }, [location]);
-  //   console.log(auth);
+export default PrivateRouter;
 
-  //   if (isLoading) {
-  //     return <div>loding...........................</div>;
-  //   }
+// import { Navigate, useNavigate, BrowserRouter, Form } from "react-router-dom";
+// import { useSelector, useDispatch } from "react-redux";
 
-  if (auth) {
-    return (
-      <>{auth && auth.role === "admin" ? children : <Navigate to="/" />}</>
-    );
-  }
-}
-// return user && user?.role === "admin" ?//go to dash
-// children : user?.role === "user" ? // go to home if he is user else go to login
-//     <Navigate to="/" />
-//     : <Navigate to="/login" />
+// import { useEffect } from "react";
+// import { useLocation } from "react-router-dom";
+// import { Outlet } from "react-router-dom";
+// import { useState } from "react";
+// import { refreshTokenn } from "../features/authSlice";
+
+// export default function PrivateRouter({ children, auth }) {
+//   const { isSuccessGetMe, isLoadingGetMe, user, isAuthenticated } = useSelector(
+//     (store) => store.auth
+//   );
+//   const location = useLocation();
+//   const dispatch = useDispatch();
+
+//   // useEffect(() => {
+//   //   dispatch(refreshTokenn());
+//   // }, [isLoadingGetMe]);
+
+//   console.log("in private route", isSuccessGetMe);
+//   console.log("user", user);
+//   return isSuccessGetMe ? (
+//     <Outlet />
+//   ) : (
+//     <Navigate state={{ form: location }} replace to="/login" />
+//   );
+// }

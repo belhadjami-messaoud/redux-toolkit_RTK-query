@@ -1,23 +1,16 @@
 import React from "react";
 import { useState } from "react";
-import { useLoginMutation } from "../services/auth/authAPI";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import { unwrapResult } from "@reduxjs/toolkit";
-import {
-  userLogin,
-  refresh,
-  setCredentials,
-  userRefresh,
-  reset,
-} from "../features/authSlice";
+import { userLogin } from "../features/authSlice";
 
 export default function Login() {
   // const [login, { data, isLoading, isSuccess, error }] = useLoginMutation();
 
-  const { isSuccess, isError } = useSelector((store) => store.auth);
+  const { user, isAuthenticated, error } = useSelector((store) => store.auth);
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState({ email: "", password: "" });
 
@@ -36,37 +29,20 @@ export default function Login() {
     }
 
     dispatch(userLogin(userInfo));
-
-    //for RTK
-    // try {
-    //   const { msg, user } = await login(userInfo);
-    //   dispatch(setCredentials({ ...user, isAuthenticated: true }));
-    //   toast.success(msg);
-    // } catch (error) {
-    //   toast.error(error.data.msg);
-    // }
   };
 
   useEffect(() => {
-    if (isError) {
+    if (error) {
       toast.error("error");
     }
 
-    if (isSuccess) {
-      dispatch(reset());
-      navigate("/", { replace: true });
-    }
-  }, [isError, isSuccess]);
+    if (isAuthenticated) {
+      // dispatch(reset());
+      console.log(user);
 
-  //for RTK
-  //   useEffect(() => {
-  //     console.log(isSuccess);
-  //     if (isSuccess) {
-  //       setTimeout(() => {
-  //         navigate("/", { replace: true });
-  //       }, 2000);
-  //     }
-  //   }, [isSuccess]);
+      navigate("/dash");
+    }
+  }, [isAuthenticated]);
 
   return (
     <>
