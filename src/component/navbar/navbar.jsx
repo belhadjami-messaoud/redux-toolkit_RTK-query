@@ -8,14 +8,13 @@ export default function navbar() {
   // const [logout] = useLogoutMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user } = useSelector((state) => state.auth);
+  const { user, isAuthenticated, loading } = useSelector((state) => state.auth);
   // console.log(user);
   return (
     <>
       <header>
         <div className="container">
           <div className="logo">
-            {/* <img src="images/logo.png" alt="Archidni"> */}
             <span>myLogo</span>
           </div>
           <ul className="nav-bar">
@@ -34,18 +33,13 @@ export default function navbar() {
             <li>
               <Link href="">About Us</Link>
             </li>
-            {!user && (
+            {!isAuthenticated && !loading && (
               <li>
                 <Link to="/login" className="login">
                   Log in
                 </Link>
               </li>
             )}
-            {/* <li>
-              <Link to="/login" className="login">
-                Log in
-              </Link>
-            </li> */}
           </ul>
           {user && (
             <Link
@@ -63,9 +57,6 @@ export default function navbar() {
               dash
             </Link>
           )}
-          {/* <Link to="/dash/home" className="button active">
-            dash
-          </Link> */}
         </div>
       </header>
     </>
